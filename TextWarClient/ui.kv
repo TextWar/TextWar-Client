@@ -1,4 +1,89 @@
-BoxLayout:
-    MDRaisedButton:
-        text: "Click me!"
-        on_release: print("Hi!")
+<ContentNavigationDrawer>:
+    orientation: "vertical"
+    padding: "8dp"
+    spacing: "8dp"
+
+    AnchorLayout:
+        anchor_x: "left"
+        size_hint_y: None
+        height: avatar.height
+
+        Image:
+            id: avatar
+            size_hint: None, None
+            size: "56dp", "56dp"
+            source: "data/logo/kivy-icon-256.png"
+
+    MDLabel:
+        text: "KivyMD library"
+        font_style: "Button"
+        size_hint_y: None
+        height: self.texture_size[1]
+
+    MDLabel:
+        text: "kivydevelopment@gmail.com"
+        font_style: "Caption"
+        size_hint_y: None
+        height: self.texture_size[1]
+
+    ScrollView:
+
+        DrawerList:
+            id: md_list
+
+<ItemDrawer>:
+    theme_text_color: "Custom"
+    on_release: self.parent.set_color_item(self)
+
+    IconLeftWidget:
+        id: icon
+        icon: root.icon
+        theme_text_color: "Custom"
+        text_color: root.text_color
+<Folder>:
+    BoxLayout:
+#        size: self.parent.size
+#        pos: self.parent.pos
+        MDLabel:
+            text: "This is num. 1 page"
+
+<Upload>:
+    BoxLayout:
+#        size: self.parent.size
+#        pos: self.parent.pos
+        MDFlatButton:
+            text: "L"
+        MDFlatButton:
+            text: 'U'
+        MDFlatButton:
+            text: "N"
+        MDFlatButton:
+            text: 'O'
+        MDFlatButton:
+            text: "."
+        MDFlatButton:
+            text: '1'
+        MDFlatButton:
+            text: "!"
+        MDFlatButton:
+            text: '?'
+NavigationLayout:
+    ScreenManager:
+        Screen:
+            BoxLayout:
+                orientation: 'vertical'
+
+                MDToolbar:
+                    title: "Navigation Drawer"
+                    elevation: 10
+                    left_action_items: [['menu', lambda x: nav_drawer.set_state()]]
+
+                BoxLayout:
+                    ScreenManager:
+                        id: sm
+    MDNavigationDrawer:
+        id: nav_drawer
+
+        ContentNavigationDrawer:
+            id: content_drawer
+
