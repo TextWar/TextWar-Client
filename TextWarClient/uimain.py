@@ -4,8 +4,8 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
 from kivymd.app import MDApp
 from kivymd.theming import ThemableBehavior
-from kivymd.uix import label
 from kivymd.uix.list import OneLineIconListItem, MDList
+
 
 class Upload(Screen):
     pass
@@ -41,7 +41,7 @@ class MainApp(MDApp):
             {"icon": "folder", "text": "My files", "screen": Folder},
             {"icon": "upload", "text": "Upload", "screen": Upload}
         ]
-        self.title = "My Material Application"
+        self.title = "TextWar"
         super().__init__(**kwargs)
 
     def build(self):
