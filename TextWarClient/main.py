@@ -31,7 +31,6 @@ class DrawerList(ThemableBehavior, MDList):
     def __init__(self, **kwargs):
         self.before_item = None
         super().__init__(**kwargs)
-
     def set_color_item(self, instance_item):
         """Called when tap on a menu item."""
         print(instance_item)
@@ -75,11 +74,13 @@ class MainApp(MDApp):
         self.root.ids.toolbar.left_action_items = [['menu', lambda x: self.root.ids.nav_drawer.set_state()]]
         self.root.ids.toolbar.title = self.before_page[0]
         self.root.ids.content_drawer.ids.md_list.set_color_item(self.before_page[1])
+        self.root.ids.nav_drawer.swipe_distance = 10
     def changeScreen(self, obj):
         print(obj)
         if obj.text == "Settings" or obj.text == "auth":
             self.before_page = (self.root.ids.sm.current, self.root.ids.content_drawer.ids.md_list.before_item)
             self.root.ids.toolbar.left_action_items = [['arrow-left', self.backward]]
+            self.root.ids.nav_drawer.swipe_distance = 99999
         self.root.ids.nav_drawer.set_state()
         self.root.ids.sm.current = obj.text
         self.root.ids.toolbar.title = obj.text
