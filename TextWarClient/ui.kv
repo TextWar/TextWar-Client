@@ -13,21 +13,21 @@
             size_hint: None, None
             size: "56dp", "56dp"
             source: "data/logo/kivy-icon-256.png"
-
     MDLabel:
-        text: "KivyMD library"
+        text: "not logged in"
         font_style: "Button"
         size_hint_y: None
         height: self.texture_size[1]
 
     MDLabel:
-        text: "kivydevelopment@gmail.com"
+        text: "XP(100/1000):"
         font_style: "Caption"
         size_hint_y: None
         height: self.texture_size[1]
+    MDRaisedButton:
+        text: "Login"
 
     ScrollView:
-
         DrawerList:
             id: md_list
 
@@ -40,14 +40,20 @@
         icon: root.icon
         theme_text_color: "Custom"
         text_color: root.text_color
-<Folder>:
+<Map>:
     BoxLayout:
 #        size: self.parent.size
 #        pos: self.parent.pos
         MDLabel:
             text: "This is num. 1 page"
+<Auth>:
+    BoxLayout:
+#        size: self.parent.size
+#        pos: self.parent.pos
+        MDLabel:
+            text: "This is num. 3 page"
 
-<Upload>:
+<Settings_>:
     BoxLayout:
 #        size: self.parent.size
 #        pos: self.parent.pos
@@ -74,6 +80,7 @@ NavigationLayout:
                 orientation: 'vertical'
 
                 MDToolbar:
+                    id: toolbar
                     title: "Navigation Drawer"
                     elevation: 10
                     left_action_items: [['menu', lambda x: nav_drawer.set_state()]]
