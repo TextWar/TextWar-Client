@@ -25,12 +25,12 @@
         size_hint_y: None
         height: self.texture_size[1]
     MDRaisedButton:
+        on_release: app.changeScreen("Auth")
         text: "Login"
 
     ScrollView:
         DrawerList:
             id: md_list
-
 <ItemDrawer>:
     theme_text_color: "Custom"
     on_release: self.parent.set_color_item(self)
@@ -42,23 +42,52 @@
         text_color: root.text_color
 <Map>:
     BoxLayout:
-#        size: self.parent.size
-#        pos: self.parent.pos
-        MDLabel:
-            text: "This is num. 1 page"
-<Auth>:
-    BoxLayout:
-#        size: self.parent.size
-#        pos: self.parent.pos
-        MDLabel:
-            text: "This is num. 3 page"
+        FloatLayout:
+            id: map
 
+#        size: self.parent.size
+#        pos: self.parent.pos
+
+<Auth>:
+
+    FloatLayout:
+        MDTextField:
+            size_hint: 0.7, None
+            pos: ((self.parent.size[0]-self.size[0])/2, (self.parent.size[1]/1.2))
+            helper_text: "Username"
+            helper_text_mode: "persistent"
+        MDTextField:
+            size_hint: 0.7, None
+            pos: ((self.parent.size[0]-self.size[0])/2, (self.parent.size[1]/1.5))
+            helper_text: "Password"
+            helper_text_mode: "persistent"
+        Remember:
+            id: aac
+            pos: ((self.parent.size[0]/1.2), (self.parent.size[1]/2))
+        MDFlatButton:
+            size_hint: None, None
+            pos: ((self.parent.size[0]-self.size[0])/2, (self.parent.size[1]/10))
+            text: "Click here to register"
+            text_color: (0.5,0.5,0.5,1)
+            font_size: sp(15)
+        MDFlatButton:
+            size_hint: None, None
+            pos: ((self.parent.size[0]-self.size[0])/1.25, (self.parent.size[1]/1.96))
+            text: "Remember me"
+            text_color: (0.5,0.5,0.5,1)
+            font_size: sp(15)
+            on_release: root.ids.aac.changeState()
+        MDRaisedButton:
+            size_hint: 0.7, 0.1
+            pos: ((self.parent.size[0]-self.size[0])/2, (self.parent.size[1]/4))
+            text: 'Login'
 <Settings_>:
     BoxLayout:
 #        size: self.parent.size
 #        pos: self.parent.pos
         MDFlatButton:
             text: "L"
+            on_release: app.add_table(self.parent.parent,[{'head1':'content1','head2':'content2'},{'head1':'content1','head2':'content2'}])
         MDFlatButton:
             text: 'U'
         MDFlatButton:
