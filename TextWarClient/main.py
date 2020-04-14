@@ -1,7 +1,9 @@
+import sys
+
 from kivy.animation import Animation
 from kivy.lang import Builder
 from kivy.metrics import sp
-from kivy.properties import StringProperty, ListProperty, BooleanProperty
+from kivy.properties import StringProperty, ListProperty, BooleanProperty, ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
 from kivymd.app import MDApp
@@ -25,32 +27,34 @@ class Settings_(Screen):
 
 
 class Map(Screen):
+    recycle_view = ObjectProperty(None)
+    items_box = ObjectProperty(None)
     def __init__(self, **kw):
         super().__init__(**kw)
         self.update_map(open("town_1.json", "r").read())
 
     def update_map(self, json_):
-        from TextWarClient.table import TableView, TableColumn, TableCell, TableRow
-        table = TableView((500, 1000), pos_hint={'center_x': .5, 'center_y': .5})  # 在屏幕正中央放一个表格
+        # self.ids.aa.data = [{'text': str(x)} for x in range(500)]
+        from table import RV
         json__ = json.loads(json_)  # 读取json
         hash_map = json__["hashmap"]  # 获取hash_map
         map_ = json__["map"]  # 获取map_
-        first = True
-        row = {}  # 创建dict
+        table = RV()  # 在屏幕正中央放一个表格
+        table.set_cols(len(map_))
+        self.add_widget(table)
+        row = []  # 创建dict
+        num = 0
         for c in map_:  # 循环map中的每个元素 即每一行 i为第几行 c为那一行对应的列表
-            row.clear()
             for ib, b in enumerate(c):  # 循环c中的每个元素 即每一格 ib为第几列 b为某个元素的字符串
                 for ic, text in enumerate(hash_map):  # 循环hash_map中的每个元素 ic为第几个元素 text表示字符串
                     if b == ic:  # 如果某一个元素的字符串与hash_map中的某个元素相对应则
-                        row[str(ib + 1)] = text.replace("*","")  # 把这一行加入到row
-            if first:
-                for i in range(len(row)):
-                    print(i+1)
-                    table.add_column(TableColumn("Col", key=str(i + 1), hint_text='0'))  # 往表格上添加一列
-                first = False
-            table.add_row(row)  # 在表格中加入这行
-
-        self.add_widget(table)
+                        row.append({'itemText': text.replace("*",""), 'paren': table, 'index': num})
+                        # print(num)
+                        num = num + 1
+        # print(row)
+        table.data = row  # 在表格中加入这行
+        # sys.exit()
+        # sys.exit()
         # table.add_column(TableColumn("Col1", key="1", hint_text='0'))
         # table.add_column(TableColumn("Col2", key="2", hint_text='0'))
         # table.add_column(TableColumn("Col3", key="3", hint_text='0'))

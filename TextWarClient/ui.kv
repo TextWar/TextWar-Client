@@ -42,8 +42,13 @@
         text_color: root.text_color
 <Map>:
     BoxLayout:
-        FloatLayout:
-            id: map
+        id: rv
+        RecycleView:
+            id: aa
+            viewclass: 'MDFlatButton'
+            RecycleBoxLayout:
+
+
 
 #        size: self.parent.size
 #        pos: self.parent.pos
